@@ -1,19 +1,19 @@
-import { Elysia } from 'elysia'
-/* import { PrismaClient } from '@prisma/client'
+import { Elysia } from "elysia";
+import { supermarketRoutes } from "./routes/supermarket.routes";
+import { shoppingCartRoutes } from "./routes/shoppingCart.routes";
+import { shoppingCartProductRoutes } from "./routes/shoppingCartProduct.routes";
+import { userRoutes } from "./routes/user.routes";
+import { productRoutes } from "./routes/procut.routes";
+import { tagRoutes } from "./routes/tag.routes";
 
-const db = new PrismaClient()  */
+const app = new Elysia().get("/", async () => {
+  return "Hello, Elysia!";
+});
 
-const app = new Elysia()
-    .get( 
-        '/', 
-        async () => {
-            return 'Hello, Elysia!112313123'
-        }
-    ) 
-    .listen(3000)
+productRoutes(app);
+tagRoutes(app);
+userRoutes(app);
+shoppingCartRoutes(app);
+shoppingCartProductRoutes(app);
 
-console.log(
-    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
-)
-
-console.log('dawd')
+app.listen(3000);
