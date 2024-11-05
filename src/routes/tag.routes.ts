@@ -16,6 +16,22 @@ export const tagRoutes = (app: Elysia) => {
         where: { id },
       });
     })
+    .get("/tags/:id/products", async ({ params }) => {
+      const id = parseInt(params.id);
+      let product =  await prisma.product.findFirst({
+        where: { tagId: id },
+        select: {
+          name: true,
+          price: true,
+        }
+      })
+
+      if (!product) {
+        return null;
+      }
+
+      return product;
+    })
     .post("/tags", async ({ body }) => {
       const { name } = body as TagBody;
       return await prisma.tag.create({
