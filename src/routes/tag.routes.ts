@@ -21,6 +21,7 @@ export const tagRoutes = (app: Elysia) => {
       let product =  await prisma.product.findFirst({
         where: { tagId: id },
         select: {
+          id: true,
           name: true,
           price: true,
         }
