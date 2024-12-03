@@ -13,9 +13,8 @@ RUN npm install
 # Copia o restante dos arquivos do projeto
 COPY . .
 
-# Gera o Prisma Client e aplica as migrações
+# Gera o Prisma Client
 RUN npx prisma generate
-RUN npx prisma migrate deploy
 
 # Compila o projeto TypeScript (caso necessário)
 RUN npx tsc
@@ -23,5 +22,5 @@ RUN npx tsc
 # Expõe a porta que o servidor utiliza
 EXPOSE 3000
 
-# Comando para iniciar o servidor
-CMD ["npm", "start"]
+# Comando para aplicar migrações e iniciar o servidor
+CMD npx prisma migrate deploy && npm start
