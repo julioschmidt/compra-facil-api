@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "bun run --watch src/server.ts",
     "build": "tsc",
-    "start": "bun run dist/server.js",
+    "start": "node dist/server.js",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "prisma:migrate": "bun prisma migrate dev --name init",
     "prisma:generate": "bun prisma generate",
