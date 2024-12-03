@@ -1,23 +1,27 @@
-# Usa uma imagem base do Bun
-FROM oven/bun:latest
+# Usa a imagem oficial do Bun
+FROM oven/bun:1.0.0
 
-# Define o diretório de trabalho dentro do container
+# Define o diretório de trabalho
 WORKDIR /app
 
-# Copia o package.json e o lockfile (caso existam)
-COPY package.json bun.lockb /app/
+# Copia os arquivos de dependências
+COPY package.json bun.lockb ./
 
-# Instala as dependências
+# Instala as dependências com Bun
 RUN bun install
 
-# Copia o código-fonte para o container
+# Copia o restante dos arquivos do projeto
 COPY . .
 
-# Compila o TypeScript para JavaScript
-RUN bun run build
-
-# Gera o Prisma Client
+# Gera o Prisma Client e aplica as migrações
 RUN bun prisma generate
+RUN bun prisma migrate deploy
 
-# Aplica migrações no banco de dados em produção
-CMD bun prisma migrate deploy && bun run dist/server.js
+# Compila o projeto TypeScript (caso seja necessário)
+RUN bun tsc
+
+# Expõe a porta que o servidor utiliza
+EXPOSE 3000
+
+# Comando para iniciar o servidor
+CMD ["bun", "start"]
