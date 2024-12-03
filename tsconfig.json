@@ -1,27 +1,23 @@
 {
   "compilerOptions": {
-    // Enable latest features
-    "lib": ["ESNext", "DOM"],
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleDetection": "force",
-    "jsx": "react-jsx",
-    "allowJs": true,
-
-    // Bundler mode
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "noEmit": true,
-
-    // Best practices
-    "strict": true,
-    "skipLibCheck": true,
-    "noFallthroughCasesInSwitch": true,
-
-    // Some stricter flags (disabled by default)
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false
-  }
+    "target": "es6",                 // Define o alvo de versão do JavaScript gerado (ES6, ES5, etc.)
+    "module": "commonjs",            // Define o sistema de módulos (CommonJS, ES6, etc.)
+    "strict": true,                  // Ativa todas as verificações de tipo rigorosas
+    "esModuleInterop": true,         // Habilita interoperabilidade de módulos ES e CommonJS
+    "skipLibCheck": true,            // Ignora verificações de tipo em arquivos de bibliotecas
+    "forceConsistentCasingInFileNames": true,  // Garante que os nomes de arquivos sejam consistentes (case-sensitive)
+    "outDir": "./dist",              // Diretório onde os arquivos compilados serão gerados
+    "rootDir": "./src",              // Diretório raiz para os arquivos de origem (padrão é "./")
+    "baseUrl": "./",                 // Diretório base para resolver os módulos (padrão é "./")
+    "paths": {                       // Mapeamento de caminhos de módulos
+      "*": ["node_modules/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts"                    // Arquivos para incluir na compilação
+  ],
+  "exclude": [
+    "node_modules",                   // Diretórios a serem excluídos da compilação
+    "dist"
+  ]
 }
