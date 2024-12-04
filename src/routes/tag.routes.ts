@@ -17,6 +17,7 @@ export const tagRoutes = (app: Elysia) => {
       });
     })
     .get("/tags/:id/products", async ({ params }) => {
+      console.log(params);
       const id = parseInt(params.id);
       let product =  await prisma.product.findFirst({
         where: { tagId: id },
@@ -26,6 +27,8 @@ export const tagRoutes = (app: Elysia) => {
           price: true,
         }
       })
+
+      console.log(product);
 
       if (!product) {
         return null;
