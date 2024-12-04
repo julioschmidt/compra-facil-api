@@ -48,8 +48,24 @@ export const shoppingCartProductRoutes = (app: Elysia) => {
     })
     .delete("/shopping-cart-products/:id", async ({ params }) => {
       const id = parseInt(params.id);
-      return await prisma.shoppingCartProduct.delete({
+
+      const shoppingCartProduct = await prisma.shoppingCartProduct.findUnique({
         where: { id },
       });
+
+      if (!shoppingCartProduct) {
+        return null;
+      }
+
+      if (shoppingCartProduct.quantity > 1) { 
+        return await prisma.shoppingCartProduct.update({
+          where: { id },
+          data: { quantity: shoppingCartProduct.quantity - 1 },
+        });
+      } else {
+        return await prisma.shoppingCartProduct.delete({
+          where: { id },
+        });
+      }
     });
 };
