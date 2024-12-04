@@ -10,6 +10,7 @@ interface ShoppingCartProductBody {
 export const shoppingCartProductRoutes = (app: Elysia) => {
   app
     .get("/shopping-cart-products", async () => {
+      console.log('entrou na rota')
       return await prisma.shoppingCartProduct.findMany();
     })
     .get("/shopping-cart-products/:id", async ({ params }) => {
