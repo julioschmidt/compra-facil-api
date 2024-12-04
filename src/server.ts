@@ -5,8 +5,9 @@ import { shoppingCartProductRoutes } from "./routes/shoppingCartProduct.routes";
 import { userRoutes } from "./routes/user.routes";
 import { productRoutes } from "./routes/procut.routes";
 import { tagRoutes } from "./routes/tag.routes";
+import cors from "@elysiajs/cors";
 
-const app = new Elysia().get("/", async () => {
+const app = new Elysia().use(cors()).get("/", async () => {
   return "Hello, Elysia!";
 });
 
