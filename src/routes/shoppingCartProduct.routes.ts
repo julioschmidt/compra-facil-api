@@ -21,9 +21,21 @@ export const shoppingCartProductRoutes = (app: Elysia) => {
     .post("/shopping-cart-products", async ({ body }) => {
       const { quantity, productId, shoppingCartId } =
         body as ShoppingCartProductBody;
-      return await prisma.shoppingCartProduct.create({
-        data: { quantity, productId, shoppingCartId },
+
+      const shoppingCartProductExists = await prisma.shoppingCartProduct.findFirst({
+        where: { productId, shoppingCartId },
       });
+
+      if (shoppingCartProductExists) { 
+        return await prisma.shoppingCartProduct.update({
+          where: { id: shoppingCartProductExists.id },
+          data: { quantity: shoppingCartProductExists.quantity + quantity },
+        });
+      } else {
+        return await prisma.shoppingCartProduct.create({
+          data: { quantity, productId, shoppingCartId },
+        });
+      }
     })
     .put("/shopping-cart-products/:id", async ({ params, body }) => {
       const id = parseInt(params.id);
